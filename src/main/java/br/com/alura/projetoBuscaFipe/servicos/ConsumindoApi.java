@@ -8,9 +8,7 @@ import java.net.http.HttpResponse;
 
 public class ConsumindoApi {
 
-    private String endereco = "https://parallelum.com.br/fipe/api/v1/carros/marcas";
-
-    public String conectandoApi() {
+    public String conectandoApi(String endereco) {
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(endereco)).build();

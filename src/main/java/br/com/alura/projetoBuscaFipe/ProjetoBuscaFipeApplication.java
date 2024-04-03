@@ -1,5 +1,6 @@
 package br.com.alura.projetoBuscaFipe;
 
+import br.com.alura.projetoBuscaFipe.principal.Principal;
 import br.com.alura.projetoBuscaFipe.servicos.ConsumindoApi;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,9 +15,9 @@ public class ProjetoBuscaFipeApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		ConsumindoApi consumindoApi = new ConsumindoApi();
 
-		System.out.println(consumindoApi.conectandoApi());
+		Principal principal = new Principal();
+		principal.exibirMenu();
 
 	}
 }
