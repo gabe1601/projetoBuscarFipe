@@ -16,16 +16,16 @@ public class ConverterDados implements IConverteDados {
         try {
             return mapper.readValue(json, classe);
         }catch (JsonProcessingException e){
-            throw  new RuntimeException();
+            throw new RuntimeException();
         }
     }
 
     @Override
     public <T> List<T> obterLista(String json, Class<T> classe) {
-        CollectionType lista = mapper.getTypeFactory()
-                .constructCollectionType(List.class, classe);
+
+        CollectionType lista = mapper.getTypeFactory().constructCollectionType(List.class, classe);
         try{
-           return mapper.readValue(json, lista);
+            return mapper.readValue(json, lista);
         }catch (JsonProcessingException e){
             throw new RuntimeException();
         }
