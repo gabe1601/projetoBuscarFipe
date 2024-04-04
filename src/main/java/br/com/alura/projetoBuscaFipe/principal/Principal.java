@@ -34,7 +34,7 @@ public class Principal {
             endereco = URL_LINK + "motos/marcas";
         }
 
-        var json = consumo.conectandoApi(escolha);
+        var json = consumo.conectandoApi(endereco);
         System.out.println(json);
 
     }
