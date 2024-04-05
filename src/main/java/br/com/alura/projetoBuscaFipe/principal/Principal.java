@@ -5,10 +5,7 @@ import br.com.alura.projetoBuscaFipe.model.Modelos;
 import br.com.alura.projetoBuscaFipe.servicos.ConsumindoApi;
 import br.com.alura.projetoBuscaFipe.servicos.ConverterDados;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Principal {
 
@@ -60,6 +57,14 @@ public class Principal {
                 .sorted(Comparator.comparing(Dados::codigo))
                 .forEach(System.out::println);
 
+        System.out.print("Digite um trecho do nome do veículo para consulta:");
+        var consultaVeiculo = sc.nextLine();
+
+        modeloLista.modelos().stream()
+                .filter(e -> e.nome().toLowerCase().contains(consultaVeiculo.toLowerCase()))
+                .forEach(System.out::println);
+
+        System.out.print("/nDigite o código do modelo para consultar valores: ");
 
     }
 }
