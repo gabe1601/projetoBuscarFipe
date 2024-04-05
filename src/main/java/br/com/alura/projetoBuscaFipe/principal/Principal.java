@@ -2,10 +2,12 @@ package br.com.alura.projetoBuscaFipe.principal;
 
 import br.com.alura.projetoBuscaFipe.model.Dados;
 import br.com.alura.projetoBuscaFipe.model.Modelos;
+import br.com.alura.projetoBuscaFipe.model.Veiculo;
 import br.com.alura.projetoBuscaFipe.servicos.ConsumindoApi;
 import br.com.alura.projetoBuscaFipe.servicos.ConverterDados;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Principal {
 
@@ -58,13 +60,34 @@ public class Principal {
                 .forEach(System.out::println);
 
         System.out.print("Digite um trecho do nome do veículo para consulta:");
-        var consultaVeiculo = sc.nextLine();
+        var consultaVeiculo = "palio";
 
-        modeloLista.modelos().stream()
+        List<Dados> modelosFiltrados = modeloLista.modelos().stream()
                 .filter(e -> e.nome().toLowerCase().contains(consultaVeiculo.toLowerCase()))
-                .forEach(System.out::println);
+                .collect(Collectors.toList());
 
-        System.out.print("/nDigite o código do modelo para consultar valores: ");
+        System.out.println("\nModelos Filtrados: ");
+        modelosFiltrados.forEach(System.out::println);
+
+
+        System.out.println("\nDigite o código do modelo para consultar valores: ");
+        var nomeVeiculo = sc.nextLine();
+
+        endereco = endereco + "/" + nomeVeiculo + "/anos";
+        json = consumo.conectandoApi(endereco);
+        List<Dados> anos = conversor.obterLista(json, Dados.class);
+
+        List<Veiculo> veiculos = new ArrayList<>();
+
+        for (int i = 0; i < anos.size(); i++) {
+            var enderecoAnos = endereco + "/" + anos.get(i).codigo();
+            json = consumo.conectandoApi(enderecoAnos);
+            Veiculo veiculo = conversor.obterDados(json, Veiculo.class);
+            veiculos.add(veiculo);
+        }
+
+        System.out.println("\nTodos os veículos: ");
+        veiculos.forEach(System.out::println);
 
     }
 }
