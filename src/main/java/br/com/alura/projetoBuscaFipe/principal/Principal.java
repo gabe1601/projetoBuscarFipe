@@ -1,6 +1,7 @@
 package br.com.alura.projetoBuscaFipe.principal;
 
 import br.com.alura.projetoBuscaFipe.model.Dados;
+import br.com.alura.projetoBuscaFipe.model.Modelos;
 import br.com.alura.projetoBuscaFipe.servicos.ConsumindoApi;
 import br.com.alura.projetoBuscaFipe.servicos.ConverterDados;
 
@@ -47,8 +48,17 @@ public class Principal {
         marcas.stream()
                 .sorted(Comparator.comparing(Dados::codigo))
                 .forEach(System.out::println);
-        System.out.print("/nInforme o código da marca para consulta: ");
+        System.out.print("\nInforme o código da marca para consulta: ");
+        var codigoMarca = sc.nextLine();
 
+        endereco = endereco + "/" + codigoMarca + "/modelos";
+
+        json = consumo.conectandoApi(endereco);
+        var modeloLista = conversor.obterDados(json, Modelos.class);
+        System.out.println("/nModelos dessa marca: ");
+        modeloLista.modelos().stream()
+                .sorted(Comparator.comparing(Dados::codigo))
+                .forEach(System.out::println);
 
 
     }
